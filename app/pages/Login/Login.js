@@ -20,32 +20,40 @@ const Login = () => {
             pass: ''
           }}
         >
-          {({handleChange, handleBlur, handleSubmit}) => (
-            <View style={styles.inputsDiv}>
-              <TextInput 
-                placeholder="E-mail"
-                type="emailAddress"
-                keyboardType="email-address"
-                autoCapitalize="none"
-                onChange={handleChange('email')}
-                handleBlur={handleBlur('email')}
-              />
-              <TextInput 
-                placeholder="Senha"
-                type="password"
-                keyboardType="default"
-                autoCapitalize="none"
-                onChange={handleChange('pass')}
-                handleBlur={handleBlur('pass')}
-              />
-              <ButtonPrimary
-                mode="contained"
-                onClick={handleSubmit}
-              >
-                <Text>Entrar</Text>
-              </ButtonPrimary>
-            </View>
-          )}
+          {({handleChange, handleBlur, handleSubmit}) => {
+            
+            const onSubmit = (e) => {
+              Actions.push('profile')
+              handleSubmit(e)
+            }
+
+            return (
+              <View style={styles.inputsDiv}>
+                <TextInput 
+                  placeholder="E-mail"
+                  type="emailAddress"
+                  keyboardType="email-address"
+                  autoCapitalize="none"
+                  onChange={handleChange('email')}
+                  handleBlur={handleBlur('email')}
+                />
+                <TextInput 
+                  placeholder="Senha"
+                  type="password"
+                  keyboardType="default"
+                  autoCapitalize="none"
+                  onChange={handleChange('pass')}
+                  handleBlur={handleBlur('pass')}
+                />
+                <ButtonPrimary
+                  mode="contained"
+                  onClick={onSubmit}
+                >
+                  <Text>Entrar</Text>
+                </ButtonPrimary>
+              </View>
+            )
+          }}
         </Formik>
         <View>
           <ButtonPrimary
