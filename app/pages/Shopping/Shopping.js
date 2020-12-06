@@ -27,25 +27,7 @@ const Shopping = ({ theme }) => {
     ],
     "Utensílios": [
       {id: 1, name: "Vassoura"},
-      {id: 1, name: "Martelo"},
-    ],
-    "Teste": [
-
-    ],
-    "Teste 2": [
-
-    ],
-    "Teste 3": [
-
-    ],
-    "Teste 4": [
-
-    ],
-    "Teste 5": [
-
-    ],
-    "Teste 6": [
-
+      {id: 2, name: "Martelo"},
     ],
   }
 
