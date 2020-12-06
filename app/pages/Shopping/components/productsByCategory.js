@@ -26,12 +26,12 @@ const ProductsByCategory = ({ items, value, ...props }) => {
               <ButtonPrimary height={50} width="5%" mode="contained">
                 <Text style={{fontWeight: 'bold'}}>-</Text>
               </ButtonPrimary>
-              <ButtonPrimary height={50} width="40%" mode="contained">
-                <Text style={{fontWeight: 'bold'}}>{item.name}</Text>
-              </ButtonPrimary>
               <View style={styles.viewProduct}>
-                <Text style={{fontWeight: 'bold'}}>+</Text>
+                <Text style={{fontWeight: 'bold'}}>{item.name}</Text>
               </View>
+              <ButtonPrimary height={50} width="5%" mode="contained">
+                <Text style={{fontWeight: 'bold'}}>+</Text>
+              </ButtonPrimary>
               <View style={styles.viewUnities}>
                 <Text>10 UN</Text>
               </View>

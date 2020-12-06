@@ -9,8 +9,7 @@ const styles = StyleSheet.create({
     margin: 15,
     display: 'flex',
     flexDirection: 'row',
-    width: '96%',
-    justifyContent: 'space-evenly'
+    width: '100%',
   },
   searchbarDiv: {
     display: 'flex',
@@ -38,11 +37,13 @@ const styles = StyleSheet.create({
   },
   viewProduct: {
     backgroundColor:  '#E76F51',
-    width: '15%',
+    width: '40%',
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
     alignContent: 'center',
+    marginLeft: 5,
+    marginRight: 5,
   },
   containerModal: {
     alignSelf: 'center',
