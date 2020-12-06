@@ -2,10 +2,10 @@ import React from 'react';
 import { Button as ButtonPaper, withTheme } from 'react-native-paper';
 import styles from './styles';
 
-const ButtonPrimary = ({ children, onClick, ...rest }) => (
+const ButtonPrimary = ({ children, height, width, onClick, ...rest }) => (
   <ButtonPaper
     {...rest}
-    style={styles.button_priamry}
+    style={{height: height, width: width, ...styles.buttonPrimary}}
     onPress={onClick}
   >
     {children}
