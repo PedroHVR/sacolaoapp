@@ -10,4 +10,4 @@ const UserSchema = new Schema({
   profile: { type: Number, required: 'Perfil é obrigatório' },
 });
 
-module.exports = mongoose.model("Users", UserSchema);
+module.exports = mongoose.model("User", UserSchema);

@@ -7,10 +7,9 @@ const path = require('path');
 const errorHandler = require('./helpers/errorHandler');
 
 const userRoutes = require('./routes/UserR');
+const productRoutes = require('./routes/ProductsR');
 
 const app = express();
-
-const dir = path.join(__dirname, 'images');
 
 app.use(cors());
 app.use(bodyParser.urlencoded({ limit: '50mb', extended: false }));
@@ -23,6 +22,7 @@ mongoose.connect(
 );
 
 app.use('/user', userRoutes);
+app.use('/product', productRoutes);
 
 app.use(errorHandler);
 
