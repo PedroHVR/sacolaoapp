@@ -10,7 +10,6 @@ const ProductsByCategory = ({ items, value, ...props }) => {
   const cart = useCart()
   const [quantities, setQuantities] = useState(cart.cart)
   const [counter, setCounter] = useState(0)
-
   useEffect(()=> {
     const mountQuantities = () => {
       setQuantities(cart.cart)
@@ -41,7 +40,7 @@ const ProductsByCategory = ({ items, value, ...props }) => {
                 width="5%" 
                 mode="contained"
                 onClick={() => {
-                  cart.removeFromCart(value, item.id)
+                  cart.removeFromCart(value, item._id)
                   setCounter(counter-1)
                 }}
               >
@@ -55,7 +54,7 @@ const ProductsByCategory = ({ items, value, ...props }) => {
                 width="5%" 
                 mode="contained"
                 onClick={() =>{
-                  cart.addToCart(value, item.id)
+                  cart.addToCart(value, item._id)
                   setCounter(counter+1)
                 }}
               >
@@ -63,7 +62,7 @@ const ProductsByCategory = ({ items, value, ...props }) => {
               </ButtonPrimary>
               <View style={styles.viewUnities}>
                 <Text>
-                  {cart.getQuantityFromCart(value, item.id)}
+                  {cart.getQuantityFromCart(value, item._id)}
                 </Text>
               </View>
             </View>

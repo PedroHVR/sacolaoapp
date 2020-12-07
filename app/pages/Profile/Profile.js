@@ -7,9 +7,11 @@ import styles from './styles';
 import { Avatar, Text } from 'react-native-paper';
 import { Actions } from 'react-native-router-flux';
 import useAuth from '../../hooks/useAuth';
+import useCart from '../../hooks/useCart';
 
 const Profile = () => {
   const { user, logout } = useAuth()
+  const { loading } = useCart()
 
   if(!user) {
     logout()
@@ -25,7 +27,12 @@ const Profile = () => {
           <Text theme={{colors: {text: '#000'}}}>EMAIL: {user.email}</Text>
         </View>
         <View>
-          <ButtonPrimary mode="contained" onClick={() => Actions.replace('shopping')}>
+          <ButtonPrimary
+            mode="contained" 
+            onClick={() => Actions.replace('shopping')}
+            loading={loading}
+            disabled={loading}
+          >
             <Text>Fazer compras</Text>
           </ButtonPrimary>
         </View>

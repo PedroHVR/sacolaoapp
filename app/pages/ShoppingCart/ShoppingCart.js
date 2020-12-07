@@ -14,15 +14,14 @@ const ShoppingCart = () => {
 
   useEffect(()=> {
   }, [counter])
-
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView>
         <View style={styles.itemsView}>
-          {cart && Object.keys(cart).map((value) =>
+          {cart && Object.keys(cart).map((value, index) =>
             (
               <>
-                <View style={styles.viewUnities}>
+                <View style={styles.viewUnities} key={`${value}${index}`}>
                   <Text>{value}</Text>
                 </View>
                 {
@@ -34,13 +33,15 @@ const ShoppingCart = () => {
                           <View style={styles.shoppingView} key={key}>
                             <View style={styles.viewProduct}>
                               <Text style={{fontWeight: 'bold'}}>
-                                {`${item.quantity} unidades de ${item.name.toLowerCase()}`}
+                                {`${item.quantity} unidade${item.quantity > 1 
+                                  ? 's'
+                                  : ''} de ${item.name.toLowerCase()}`}
                               </Text>
                             </View>
                             <ButtonPrimary 
                               mode="contained"
                               onClick={() =>{
-                                removeAllFromCart(value, item.id)
+                                removeAllFromCart(value, item._id)
                                 setCounter(counter+1)
                               }}
                             >

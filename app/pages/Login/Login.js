@@ -29,7 +29,6 @@ const Login = () => {
           onSubmit={async (data) => doLogin(data)}
         >
           {({handleChange, handleBlur, handleSubmit, isValid, values }) => {
-            console.log(values)
             const submit = () => {
               handleSubmit();
               if (!isValid) {

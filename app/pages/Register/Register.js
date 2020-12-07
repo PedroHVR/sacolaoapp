@@ -14,10 +14,9 @@ import useAuth from '../../hooks/useAuth';
 const Register = () => {
 
   const [radioButtonCheck, setRadioButtonCheck] = useState(0)
-  const { register } = useAuth()
+  const { register, loading } = useAuth()
 
   const onSubmit = async (data) => {
-    console.log(data)
     if(data.passwordConfirm !== data.password) return false
     delete data.passwordConfirm;
     const response = await register(data);
