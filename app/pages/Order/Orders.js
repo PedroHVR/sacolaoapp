@@ -23,6 +23,17 @@ const Orders = () => {
 
   return (
     <SafeAreaView style={styles.container}>
+      {
+        orders && orders.length === 0 &&
+          <View style={styles.emptyView}>
+            <Text style={{fontWeight: 'bold'}}>
+              Não há ninguém precisando de ajuda hoje
+            </Text>
+            <Text style={{fontWeight: 'bold'}}>
+              Obrigado por ajudar :)             
+            </Text>
+          </View>
+      }
       <ScrollView>
         <View style={styles.itemsView}>
           { orders && orders !== true && Object.keys(orders).map((index, key) => {
@@ -42,6 +53,7 @@ const Orders = () => {
             }
           )}
         </View>
+       
       </ScrollView>
       <View 
         style={styles.viewActions}

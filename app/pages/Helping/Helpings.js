@@ -28,6 +28,21 @@ const Helpings = () => {
 //   }
   return (
     <SafeAreaView style={styles.container}>
+      {
+        helpings && helpings.length === 0 &&
+          <View style={styles.emptyView}>
+            <Text style={{fontWeight: 'bold'}}>
+              Ops, parece que você não ajudou ninguém ainda
+            </Text>
+            <ButtonPrimary mode="text" onClick={() => Actions.replace('orders')}>
+              <Text 
+                style={{fontWeight: 'bold'}} 
+              >
+                Que tal começar clicando aqui :D            
+              </Text>
+            </ButtonPrimary>
+          </View>
+      }
       <ScrollView>
         <View style={styles.itemsView}>
           { helpings && Object.keys(helpings).map((index, key) => {

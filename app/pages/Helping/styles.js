@@ -35,6 +35,14 @@ const styles = StyleSheet.create({
     justifyContent: 'space-evenly',
     height: "12%" 
   },
+  emptyView: {
+    backgroundColor:  '#E76F51',
+    width: '100%',
+    height: '40%',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
 });
 
 export default styles

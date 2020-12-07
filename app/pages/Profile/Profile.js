@@ -58,11 +58,13 @@ const Profile = () => {
             >
               <Text>Ajudar</Text>
             </ButtonPrimary>
-            {helpings &&<ButtonPrimary
+            <ButtonPrimary
               onClick={() => Actions.replace('helpings')}
+              loading={loading || loadingOrder}
+              disabled={loading || loadingOrder}
             >
               <Text theme={{colors: {text: "#000"}}}>Minhas ajudas</Text>
-            </ButtonPrimary>}
+            </ButtonPrimary>
           </View>
         }
       </View>
