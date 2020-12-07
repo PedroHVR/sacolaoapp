@@ -6,17 +6,19 @@ import Router from './components/Router/Router';
 
 import { Provider as PaperProvider } from 'react-native-paper';
 import theme from './theme/theme';
-import cartContext from './contexts/cartContext';
 import CartProvider from './providers/cartProvider';
+import AuthProvider from './providers/authProvider';
 
 const App = () => {
   return (
     <>
       <PaperProvider theme={theme}>
         <StatusBar translucent backgroundColor="#264653" />
-        <CartProvider>
-          <Router />
-        </CartProvider>
+        <AuthProvider>
+          <CartProvider>
+            <Router />
+          </CartProvider>
+        </AuthProvider>
       </PaperProvider>
     </>
   );
