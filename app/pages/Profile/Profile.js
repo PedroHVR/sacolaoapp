@@ -42,11 +42,13 @@ const Profile = () => {
             >
               <Text>Fazer compras</Text>
             </ButtonPrimary>
-            {orders && orders !== true &&<ButtonPrimary
+            <ButtonPrimary
               onClick={() => Actions.replace('orders')}
+              loading={loading || loadingOrder}
+              disabled={loading || loadingOrder}
             >
               <Text theme={{colors: {text: "#000"}}}>Minhas compras</Text>
-            </ButtonPrimary>}
+            </ButtonPrimary>
           </View>
           :
           <View style={styles.viewActions}>
