@@ -12,7 +12,7 @@ exports.createUser = function(req, res, next) {
     email: null,
     password: null,
     address: null,
-    perfil: null,
+    profile: null,
   };
   
   for (let key in req.body) {
@@ -23,7 +23,7 @@ exports.createUser = function(req, res, next) {
 
   let condition = data.name == null || data.email == null || 
                   data.password == null || data.address === null ||
-                  data.perfil == null
+                  data.profile == null
 
   if (condition) {
     return res.status(406).json({
@@ -40,7 +40,7 @@ exports.createUser = function(req, res, next) {
 
     bcrypt.hash(data.password, 10, function(err, hash) {
       if (err) {
-        return res.status(406).json({
+        return res.status(500).json({
           'response' : null,
           'error' : err
         });
@@ -50,7 +50,7 @@ exports.createUser = function(req, res, next) {
 
         newUser.save(function(err, user) {
           if (err) {
-            return res.status(406).json({
+            return res.status(500).json({
               'response': null,
               'error' : err
             });
@@ -60,7 +60,7 @@ exports.createUser = function(req, res, next) {
               email: user.email,
               idUser: user._id,
               name: user.name,
-              role: user.perfil
+              role: user.profile
             }
 
             let token = jwt.sign(
@@ -128,7 +128,7 @@ exports.login = function(req, res, next) {
                   'email': user.email,
                   'idUser': user._id,
                   'name': user.name,
-                  'role': user.perfil
+                  'role': user.profile
                 };
 
                 let infoUser = {

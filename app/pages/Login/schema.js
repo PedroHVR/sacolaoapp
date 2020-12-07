@@ -1,7 +1,7 @@
 import * as Yup from 'yup';
 
 const schema = Yup.object().shape({
-  pass: Yup.string()
+  password: Yup.string()
     .required('Por favor, digite sua senha')
     .min(6, 'Sua senha deve possuir 6 digítos'),
   email: Yup.string()

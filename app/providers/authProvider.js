@@ -18,7 +18,7 @@ const AuthProvider = ({ children }) => {
       const response = await service.userService.user.login({ email, password });
       setLoading(false);
       if (response && response.status === 201) {
-        setUser(response.data.response);
+        setUser(response.data.response.data);
         await AsyncStorage.setItem('userToken', response.data.response.token);
         setAuthenticated(true);
       } else {
@@ -48,7 +48,11 @@ const AuthProvider = ({ children }) => {
       value={{
         login,
         register,
-        logout
+        logout,
+        user,
+        emailLogin,
+        authenticated,
+        loading,
       }}
     >
       {children}

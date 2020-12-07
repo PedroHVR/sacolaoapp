@@ -12,6 +12,10 @@ const useAuth = () => {
     login: context.login,
     register: context.register,
     logout: context.logout,
+    user: context.user,
+    emailLogin: context.emailLogin,
+    authenticated: context.authenticated,
+    loading: context.loading,
   };
 };
 

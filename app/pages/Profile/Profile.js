@@ -6,16 +6,23 @@ import {  ButtonPrimary, TextInput } from '../../components';
 import styles from './styles';
 import { Avatar, Text } from 'react-native-paper';
 import { Actions } from 'react-native-router-flux';
+import useAuth from '../../hooks/useAuth';
 
 const Profile = () => {
+  const { user, logout } = useAuth()
+
+  if(!user) {
+    logout()
+  }
+
   return (
     <SafeAreaView style={styles.container}>
       <Avatar.Icon size={24} icon="cog" color="#FFF" style={{alignSelf: 'flex-end', marginTop: '8%'}}/>  
       <View style={styles.profileView}>
         <View style={styles.imageDiv}>
           <Avatar.Icon size={100} icon="account" color="#FFF"/>
-          <Text theme={{colors: {text: '#000'}}}>LUIZ FERNANDO</Text>
-          <Text theme={{colors: {text: '#000'}}}>EMAIL: email@email.com</Text>
+          <Text theme={{colors: {text: '#000'}}}>{user.name.toUpperCase()}</Text>
+          <Text theme={{colors: {text: '#000'}}}>EMAIL: {user.email}</Text>
         </View>
         <View>
           <ButtonPrimary mode="contained" onClick={() => Actions.replace('shopping')}>

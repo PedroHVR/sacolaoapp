@@ -30,6 +30,7 @@ const TextInput = ({
       onChangeText={onChange}
       onBlur={handleBlur}
       defaultValue={value}
+      theme={{colors: {text: "#000"}}}
     />
     {helperText && <Caption>{helperText}</Caption>}
   </>

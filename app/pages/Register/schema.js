@@ -1,18 +1,18 @@
 import * as Yup from 'yup';
 
 function validatePass(value) {
-  const { pass } = this.parent;
-  return pass === value;
+  const { password } = this.parent;
+  return password === value;
 }
 
 const schema = Yup.object().shape({
   name: Yup.string()
     .required('Não se esqueça do seu nome')
     .min(2, 'Vamos lá, eu sei que seu nome é um pouquinho maior'),
-  pass: Yup.string()
+  password: Yup.string()
     .required('Por favor, digite sua senha')
     .min(6, 'Sua senha deve possuir 6 digítos'),
-  passConfirm: Yup.string().test(
+    passwordConfirm: Yup.string().test(
     'pass-match',
     'Oh, oh, parece que suas senhas não batem',
     validatePass

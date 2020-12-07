@@ -1,15 +1,22 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 import { View, SafeAreaView } from 'react-native';
-import { Formik } from 'formik'
+import { Formik, useFormik } from 'formik'
 import {  ButtonPrimary, TextInput } from '../../components';
 
 import styles from './styles';
 import schema from './schema';
 import { Text } from 'react-native-paper';
 import { Actions } from 'react-native-router-flux';
+import useAuth from '../../hooks/useAuth';
 
 const Login = () => {
+  const { login, loading, emailLogin } = useAuth()
+
+  const doLogin = async (data) => {
+    await login({ email: data.email, password: data.password });
+  };
+
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.loginView}>
@@ -17,15 +24,17 @@ const Login = () => {
           validationSchema={schema}
           initialValues={{
             email: '',
-            pass: ''
+            password: ''
           }}
+          onSubmit={async (data) => doLogin(data)}
         >
-          {({handleChange, handleBlur, handleSubmit}) => {
-            
-            const onSubmit = (e) => {
-              Actions.push('profile')
-              handleSubmit(e)
-            }
+          {({handleChange, handleBlur, handleSubmit, isValid, values }) => {
+            console.log(values)
+            const submit = () => {
+              handleSubmit();
+              if (!isValid) {
+              }
+            };
 
             return (
               <View style={styles.inputsDiv}>
@@ -34,6 +43,7 @@ const Login = () => {
                   type="emailAddress"
                   keyboardType="email-address"
                   autoCapitalize="none"
+                  value={emailLogin || values.email}
                   onChange={handleChange('email')}
                   handleBlur={handleBlur('email')}
                 />
@@ -42,12 +52,15 @@ const Login = () => {
                   type="password"
                   keyboardType="default"
                   autoCapitalize="none"
-                  onChange={handleChange('pass')}
-                  handleBlur={handleBlur('pass')}
+                  value={values.password}
+                  onChange={handleChange('password')}
+                  handleBlur={handleBlur('password')}
+                  secureTextEntry
                 />
                 <ButtonPrimary
                   mode="contained"
-                  onClick={onSubmit}
+                  onClick={submit}
+                  loading={loading}
                 >
                   <Text>Entrar</Text>
                 </ButtonPrimary>
