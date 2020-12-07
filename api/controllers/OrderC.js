@@ -3,7 +3,7 @@ const User = require('../models/User');
 
 exports.listProducts = function(req, res, next) {
   const { userId } = req.params;
-  const params = userId ? {user: userId} : {}
+  const params = userId ? {user: userId} : {status: 1}
 
   Order.find(params, (err, docs) => {
     if (err) {
@@ -11,7 +11,7 @@ exports.listProducts = function(req, res, next) {
     } else {
       res.status(200).json(docs)
     }
-  }).populate("user").populate("helper")
+  }).populate("user").populate("helper").sort({status: 1})
 }
 
 exports.updateStatus = function(req, res, next) {

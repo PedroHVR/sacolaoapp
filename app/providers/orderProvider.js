@@ -16,9 +16,13 @@ const OrderProvider = ({ children }) => {
     setOrders(response.data)
     if(profile === 2) {
       await loadHelpings()
-    }
-    if(loading){
-      setLoading(false)
+      if(loading){
+        setLoading(false)
+      }
+    } else {
+      if(loading){
+        setLoading(false)
+      }
     }
   }
 
@@ -59,9 +63,17 @@ const OrderProvider = ({ children }) => {
   }
 
   const finishOrder = async function(orderId) {
-    console.log(orderId)
     setLoading(true)
     const response = await services.orderService.order.updateOrderStatus(orderId, 3)
+    if(response.status === 200) {
+      loadOrders()
+    }
+    setLoading(false)
+  }
+
+  const cancelOrder = async function(orderId) {
+    setLoading(true)
+    const response = await services.orderService.order.updateOrderStatus(orderId, 0)
     if(response.status === 200) {
       loadOrders()
     }
@@ -78,6 +90,7 @@ const OrderProvider = ({ children }) => {
         helpings,
         loadHelpings,
         finishOrder,
+        cancelOrder,
         loading: loading,
       }}
     >

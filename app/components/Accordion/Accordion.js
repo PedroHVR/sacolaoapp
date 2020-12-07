@@ -5,8 +5,8 @@ import useAuth from '../../hooks/useAuth';
 import useOrder from '../../hooks/useOrder';
 import { ButtonPrimary } from '../ButtonPrimary';
 
-const statuses = ["", "Aguardando voluntário", "Está sendo comprado", "Finalizada"]
-const statusesSelf = ["", "", "Você está ajudando", "Finalizada"]
+const statuses = ["Cancelada", "Aguardando voluntário", "Está sendo comprado", "Finalizada"]
+const statusesSelf = ["Cancelada", "", "Você está ajudando", "Recebida por"]
 
 const Accordion = ({ name, userName, items, status, orderId, helper, type, theme }) => {
   const themeAccordion =  {colors: {text: "#000", primary: "#000"}}
@@ -15,7 +15,7 @@ const Accordion = ({ name, userName, items, status, orderId, helper, type, theme
 
   const handlePress = () => setExpanded(!expanded);
 
-  const { isCategoryEmpty, helpOrderUser, loading, finishOrder } = useOrder()
+  const { isCategoryEmpty, helpOrderUser, loading, finishOrder, cancelOrder } = useOrder()
 
   const { profile } = useAuth();
   const title = type === 1 ?
@@ -78,13 +78,20 @@ const Accordion = ({ name, userName, items, status, orderId, helper, type, theme
           <Text>Ajudar</Text>
         </ButtonPrimary>
       }
-      {profile === 1 && 
+      {profile === 1 && status === 2 &&
         <ButtonPrimary 
           mode="contained"
-          disabled={status !== 2}
           onClick={() => finishOrder(orderId)}
         >
           <Text>Já recebi essa compra</Text>
+        </ButtonPrimary>
+      }
+      {profile === 1 && status === 1 &&
+        <ButtonPrimary 
+          mode="contained"
+          onClick={() => cancelOrder(orderId)}
+        >
+          <Text>Cancelar essa compra</Text>
         </ButtonPrimary>
       }
     </List.Section>

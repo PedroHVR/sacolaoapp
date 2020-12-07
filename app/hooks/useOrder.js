@@ -16,6 +16,7 @@ const useOrder = () => {
     helpings: context.helpings,
     loadHelpings: context.loadHelpings,
     finishOrder: context.finishOrder,
+    cancelOrder: context.cancelOrder,
     loading: context.loading
   };
 };
