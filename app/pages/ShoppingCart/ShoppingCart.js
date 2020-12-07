@@ -9,21 +9,37 @@ import { Actions } from 'react-native-router-flux';
 import useCart from '../../hooks/useCart';
 
 const ShoppingCart = () => {
-  const { cart, removeAllFromCart } = useCart()
+  const {
+    cart,
+    removeAllFromCart,
+    orderCart,
+    loading,
+    isCartEmpty,
+    isCategoryEmpty,
+   } = useCart()
   const [counter, setCounter] = useState(0)
 
   useEffect(()=> {
   }, [counter])
   return (
     <SafeAreaView style={styles.container}>
+      {isCartEmpty() && 
+        <View style={styles.emptyView}>
+          <Text style={{fontWeight: 'bold'}}>
+            Sua sacola está vazia                
+          </Text>
+        </View>
+      }
       <ScrollView>
         <View style={styles.itemsView}>
-          {cart && Object.keys(cart).map((value, index) =>
+          { cart && !isCartEmpty() && Object.keys(cart).map((value, index) =>
             (
               <>
-                <View style={styles.viewUnities} key={`${value}${index}`}>
-                  <Text>{value}</Text>
-                </View>
+                {!isCategoryEmpty(value) &&
+                  <View style={styles.viewUnities} key={`${value}${index}`}>
+                    <Text>{value}</Text>
+                  </View>
+                }
                 {
                   Object.keys(cart[value]).map((key) => {
                     const item = cart[value][key]
@@ -61,8 +77,15 @@ const ShoppingCart = () => {
       <View 
         style={styles.viewActions}
       >
-        <ButtonPrimary mode="contained" >
-          <Text style={{fontWeight: 'bold'}}>Fechar sacola</Text>
+        <ButtonPrimary 
+          mode="contained"
+          loading={loading}
+          disabled={loading || isCartEmpty()}
+          onClick={orderCart}
+        >
+          <Text style={{fontWeight: 'bold'}}>
+            Fechar sacola
+          </Text>
         </ButtonPrimary>
         <ButtonPrimary mode="text" onClick={() => Actions.replace('shopping')}>
           <Text style={{fontWeight: 'bold'}} theme={{colors: {text: "#000"}}}>

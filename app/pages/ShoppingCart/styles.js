@@ -5,6 +5,14 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff',
   },
+  emptyView: {
+    backgroundColor:  '#E76F51',
+    width: '100%',
+    height: '40%',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
   shoppingView: {
     margin: 15,
     display: 'flex',

@@ -14,6 +14,9 @@ const useCart = () => {
     removeFromCart: context.removeFromCart,
     getQuantityFromCart: context.getQuantityFromCart,
     removeAllFromCart: context.removeAllFromCart,
+    orderCart: context.orderCart,
+    isCartEmpty: context.isCartEmpty,
+    isCategoryEmpty: context.isCategoryEmpty,
     loading: context.loading
   };
 };

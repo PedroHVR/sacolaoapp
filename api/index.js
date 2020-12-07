@@ -8,6 +8,7 @@ const errorHandler = require('./helpers/errorHandler');
 
 const userRoutes = require('./routes/UserR');
 const productRoutes = require('./routes/ProductsR');
+const orderRoutes = require('./routes/OrderR');
 
 const app = express();
 
@@ -23,6 +24,7 @@ mongoose.connect(
 
 app.use('/user', userRoutes);
 app.use('/product', productRoutes);
+app.use('/order', orderRoutes);
 
 app.use(errorHandler);
 

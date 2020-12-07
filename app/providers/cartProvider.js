@@ -1,11 +1,16 @@
 import React, { useEffect, useState } from 'react';
+import { Actions } from 'react-native-router-flux';
 import CartContext from '../contexts/cartContext';
 import useProduct from '../hooks/useProduct';
+import services from '../services';
+import useAuth from '../hooks/useAuth';
 
 const CartProvider = ({ children }) => {
   const { products, loadProducts } = useProduct()
-  const [ loading, setLoading ] = useState(true)
+  const [ loadingCart, setLoadingCart ] = useState(true)
+  const [ loading, setLoading ] = useState(false)
   const [cart, setCart] = useState()
+  const { user } = useAuth()
 
   useEffect(() => {
     const loadCart = async () => {
@@ -19,10 +24,10 @@ const CartProvider = ({ children }) => {
         })
         setCart(toCart)
       })
-      setLoading(false)
+      setLoadingCart(false)
     }
     loadCart()
-  }, [loading])
+  }, [loadingCart])
 
   const addToCart = (category, id) => {
     const cartItems = cart
@@ -67,6 +72,35 @@ const CartProvider = ({ children }) => {
     return toModify.quantity
   }
 
+  const isCategoryEmpty = (category) => {
+    return cart[category].filter(val => val.quantity > 0).length === 0
+  }
+
+  const isCartEmpty = () => {
+    const items = []
+    for(let key in cart) {
+      items.push(cart[key].filter(val => val.quantity > 0))
+    }
+    return items.flat().length === 0
+  }
+
+  const orderCart = async () => {
+    if(!isCartEmpty()){
+      setLoading(true)
+      try {
+        const response = await services.orderService.order.createOrder({userId: user.idUser, products: cart})
+        setLoading(false);
+        if (response && response.status === 201) {
+          Actions.push('profile')
+        } else {
+          setLoading(false);
+        }
+      } catch (err) {
+        setLoading(false);
+      }
+    }
+  }
+
   return (
     <CartContext.Provider
       value={{
@@ -75,7 +109,10 @@ const CartProvider = ({ children }) => {
         removeFromCart,
         getQuantityFromCart,
         removeAllFromCart,
-        loading,
+        orderCart,
+        isCartEmpty,
+        isCategoryEmpty,
+        loading: loading || loadingCart,
       }}
     >
       {children}
