@@ -5,6 +5,7 @@ const ObjectId = Schema.Types.ObjectId;
 const OrderSchema = new Schema({
     products: [],
     user: { type: ObjectId, ref: 'User' },
+    helper: { type: ObjectId, ref: 'User' },
     status: { type: Number, default: 1},
 });
 

@@ -12,6 +12,9 @@ const useOrder = () => {
     orders: context.orders,
     isCategoryEmpty: context.isCategoryEmpty,
     loadOrders: context.loadOrder,
+    helpOrderUser: context.helpOrderUser,
+    helpings: context.helpings,
+    loadHelpings: context.loadHelpings,
     loading: context.loading
   };
 };

@@ -91,6 +91,7 @@ const CartProvider = ({ children }) => {
         const response = await services.orderService.order.createOrder({userId: user.idUser, products: cart})
         setLoading(false);
         if (response && response.status === 201) {
+          await loadOrders()
           Actions.push('profile')
         } else {
           setLoading(false);

@@ -7,6 +7,7 @@ import styles from './styles';
 import { Text } from 'react-native-paper';
 import { Actions } from 'react-native-router-flux';
 import useCart from '../../hooks/useCart';
+import useOrder from '../../hooks/useOrder';
 
 const ShoppingCart = () => {
   const {
@@ -17,6 +18,11 @@ const ShoppingCart = () => {
     isCartEmpty,
     isCategoryEmpty,
    } = useCart()
+
+   const {
+     loadOrders
+   } = useOrder()
+
   const [counter, setCounter] = useState(0)
 
   useEffect(()=> {
@@ -82,7 +88,10 @@ const ShoppingCart = () => {
           mode="contained"
           loading={loading}
           disabled={loading || isCartEmpty()}
-          onClick={orderCart}
+          onClick={async () => {
+            await orderCart()
+            await loadOrders()
+          }}
         >
           <Text style={{fontWeight: 'bold'}}>
             Fechar sacola

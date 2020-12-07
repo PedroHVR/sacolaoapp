@@ -3,15 +3,47 @@ const User = require('../models/User');
 
 exports.listProducts = function(req, res, next) {
   const { userId } = req.params;
-  console.log(userId)
   const params = userId ? {user: userId} : {}
+
   Order.find(params, (err, docs) => {
     if (err) {
       res.status(500).json(err)
     } else {
       res.status(200).json(docs)
     }
-  }).populate("user")
+  }).populate("user").populate("helper")
+}
+
+exports.updateStatus = function(req, res, next) {
+  const { orderId, status, helper } = req.params;
+  
+  if(!orderId || !status) {
+    res.status(406).json({
+      "error": "Invalid Params!"
+    })
+  } else {
+    Order.findById(orderId, (err, order) => {
+      if (err) {
+        res.status(500).json(err)
+      } else {
+        if(!order){
+          res.status(404).json({
+            "error": "Order not found"
+          })
+        } else {
+          order.updateOne({status: status, helper: helper}, function(err, order){
+            if (err) {
+              res.status(500).json(err)
+            } else {
+               res.status(200).json({
+                 "message": "Updated"
+               })
+             }
+          })
+        }
+      }
+    })
+  }
 }
 
 exports.create = function(req, res) {
@@ -52,5 +84,23 @@ exports.create = function(req, res) {
         }
       }
     })
+  }
+}
+
+exports.myHelpingOrders = function(req, res) {
+  const { userId } = req.params;
+  
+  if(!userId) {
+    res.status(406).json({
+      "error": "Invalid Params!"
+    });
+  } else {
+    Order.find({helper: userId}, function(err, docs){
+      if (err) {
+        res.status(500).json(err)
+      } else {
+        res.status(200).json(docs)
+      }
+    }).populate("user").populate("helper")
   }
 }

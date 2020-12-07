@@ -1,18 +1,27 @@
 import React, { useState } from 'react';
 import { List, withTheme } from 'react-native-paper';
+import { Text } from 'react-native-paper';
+import useAuth from '../../hooks/useAuth';
 import useOrder from '../../hooks/useOrder';
-import { order } from '../../services/order';
+import { ButtonPrimary } from '../ButtonPrimary';
 
 const statuses = ["", "Aguardando voluntário", "Está sendo comprado", "Finalizada"]
+const statusesSelf = ["", "", "Você está ajudando", "Finalizada"]
 
-const Accordion = ({ name, items, status, orderId, theme }) => {
+const Accordion = ({ name, userName, items, status, orderId, helper, type, theme }) => {
   const [expanded, setExpanded] = useState(false);
 
   const handlePress = () => setExpanded(!expanded);
   const themeAccordion =  {colors: {text: "#000", primary: "#000"}}
-  const { isCategoryEmpty } = useOrder()
+  const { isCategoryEmpty, helpOrderUser, loading } = useOrder()
+  const { profile } = useAuth();
+  const title = type === 1 ?
+  `${statuses[status]} ${status !== 1
+    && helper ? 'por '+helper.name : ''}` :
+  `${statusesSelf[status]} ${userName}`
+
   return (
-    <List.Section 
+    <List.Section
       theme={{...themeAccordion, ...theme}}
       title={`Pedido ${name}`}
       style={{width: "100%"}}
@@ -21,7 +30,7 @@ const Accordion = ({ name, items, status, orderId, theme }) => {
       }}
     >
       <List.Accordion
-        title={`Status: ${statuses[status]}`}
+        title={title}
         left={props => <List.Icon {...props} icon="folder" />}
         expanded={expanded}
         onPress={handlePress}
@@ -32,7 +41,7 @@ const Accordion = ({ name, items, status, orderId, theme }) => {
           items.map(item => Object.keys(item).map((category, index) => {
             const products = item[category]
             return (
-              !isCategoryEmpty(orderId, category) && <List.Section 
+              !isCategoryEmpty(orderId, category, type) && <List.Section 
                 key={index} 
                 title={category}
                 titleStyle={{
@@ -56,6 +65,24 @@ const Accordion = ({ name, items, status, orderId, theme }) => {
           ))
         }
       </List.Accordion>
+      {type === 1 && profile === 2 && 
+        <ButtonPrimary 
+          mode="contained"
+          disabled={status !== 1 || loading}
+          onClick={() => helpOrderUser(orderId)}
+          loading={loading}
+        >
+          <Text>Ajudar</Text>
+        </ButtonPrimary>
+      }
+      {profile === 1 && 
+        <ButtonPrimary 
+          mode="contained"
+          disabled={status !== 2}
+        >
+          <Text>Já recebi essa compra</Text>
+        </ButtonPrimary>
+      }
     </List.Section>
   );
 };

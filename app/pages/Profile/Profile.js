@@ -13,14 +13,19 @@ import useOrder from '../../hooks/useOrder';
 const Profile = () => {
   const { user, profile, logout } = useAuth()
   const { loading } = useCart()
-  const { orders } = useOrder()
+  const { orders, helpings, loading: loadingOrder } = useOrder()
   if(!user) {
     logout()
   }
 
   return (
     <SafeAreaView style={styles.container}>
-      <Avatar.Icon size={24} icon="cog" color="#FFF" style={{alignSelf: 'flex-end', marginTop: '8%'}}/>  
+      <Avatar.Icon 
+        size={24} 
+        icon="cog" 
+        color="#FFF" 
+        style={{alignSelf: 'flex-end', marginTop: '8%'}}
+      />
       <View style={styles.profileView}>
         <View style={styles.imageDiv}>
           <Avatar.Icon size={100} icon="account" color="#FFF"/>
@@ -32,16 +37,15 @@ const Profile = () => {
             <ButtonPrimary
               mode="contained" 
               onClick={() => Actions.replace('shopping')}
-              loading={loading}
-              disabled={loading}
+              loading={loading || loadingOrder}
+              disabled={loading || loadingOrder}
             >
               <Text>Fazer compras</Text>
             </ButtonPrimary>
             {orders && orders !== true &&<ButtonPrimary
-              mode="contained" 
               onClick={() => Actions.replace('orders')}
             >
-              <Text>Ver compras</Text>
+              <Text theme={{colors: {text: "#000"}}}>Minhas compras</Text>
             </ButtonPrimary>}
           </View>
           :
@@ -49,11 +53,16 @@ const Profile = () => {
             <ButtonPrimary
               mode="contained" 
               onClick={() => Actions.replace('orders')}
-              loading={loading}
-              disabled={loading}
+              loading={loading || loadingOrder}
+              disabled={loading || loadingOrder}
             >
               <Text>Ajudar</Text>
             </ButtonPrimary>
+            {helpings &&<ButtonPrimary
+              onClick={() => Actions.replace('helpings')}
+            >
+              <Text theme={{colors: {text: "#000"}}}>Minhas ajudas</Text>
+            </ButtonPrimary>}
           </View>
         }
       </View>

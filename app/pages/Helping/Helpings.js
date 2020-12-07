@@ -8,34 +8,40 @@ import { Text } from 'react-native-paper';
 import { Actions } from 'react-native-router-flux';
 import useOrder from '../../hooks/useOrder';
 
-const Orders = () => {
+const Helpings = () => {
   const {
-    orders,
-    loadOrders,
+    helpings,
+    loadHelpings
    } = useOrder()
   const [counter, setCounter] = useState(0)
 
   useEffect(()=> {
-    if(orders === true) {
-      loadOrders()
+    if(!helpings) {
+      loadHelpings()
     }
   }, [counter])
 
+//   {!isCategoryEmpty(value) &&
+//     <View style={styles.viewUnities} key={`${value}${index}`}>
+//       <Text>{value}</Text>
+//     </View>
+//   }
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView>
         <View style={styles.itemsView}>
-          { orders && orders !== true && Object.keys(orders).map((index, key) => {
-              const order = orders[index]
+          { helpings && Object.keys(helpings).map((index, key) => {
+              const help = helpings[index]
               return (
                 <View style={styles.shoppingView} key={key}>
                   <Accordion 
-                    name={order.user.address} 
-                    status={order.status} 
-                    items={order.products}
-                    orderId={order._id}
-                    helper={order.helper}
-                    type={1}
+                    name={help.user.address}
+                    userName={help.user.name} 
+                    status={help.status} 
+                    items={help.products}
+                    orderId={help._id}
+                    helper={help.helper}
+                    type={2}
                   />
                 </View>
               )
@@ -56,4 +62,4 @@ const Orders = () => {
   )
 }
 
-export default Orders
+export default Helpings
