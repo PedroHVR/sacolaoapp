@@ -1,7 +1,7 @@
 import api from '../api';
 
-const listOrders = async (data) => {
-  return api.get('/order/', { data: data })
+const listOrders = async (userId) => {
+  return api.get('/order/'+userId)
 };
 
 const createOrder = async (data) => {

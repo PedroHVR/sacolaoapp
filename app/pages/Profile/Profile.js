@@ -11,7 +11,7 @@ import useCart from '../../hooks/useCart';
 import useOrder from '../../hooks/useOrder';
 
 const Profile = () => {
-  const { user, logout } = useAuth()
+  const { user, profile, logout } = useAuth()
   const { loading } = useCart()
   const { orders } = useOrder()
   if(!user) {
@@ -27,22 +27,35 @@ const Profile = () => {
           <Text theme={{colors: {text: '#000'}}}>{user.name.toUpperCase()}</Text>
           <Text theme={{colors: {text: '#000'}}}>EMAIL: {user.email}</Text>
         </View>
-        <View style={styles.viewActions}>
-          <ButtonPrimary
-            mode="contained" 
-            onClick={() => Actions.replace('shopping')}
-            loading={loading}
-            disabled={loading}
-          >
-            <Text>Fazer compras</Text>
-          </ButtonPrimary>
-          {orders && orders !== true &&<ButtonPrimary
-            mode="contained" 
-            onClick={() => Actions.replace('orders')}
-          >
-            <Text>Ver compras</Text>
-          </ButtonPrimary>}
-        </View>
+        {profile && profile === 1 ? 
+          <View style={styles.viewActions}>
+            <ButtonPrimary
+              mode="contained" 
+              onClick={() => Actions.replace('shopping')}
+              loading={loading}
+              disabled={loading}
+            >
+              <Text>Fazer compras</Text>
+            </ButtonPrimary>
+            {orders && orders !== true &&<ButtonPrimary
+              mode="contained" 
+              onClick={() => Actions.replace('orders')}
+            >
+              <Text>Ver compras</Text>
+            </ButtonPrimary>}
+          </View>
+          :
+          <View style={styles.viewActions}>
+            <ButtonPrimary
+              mode="contained" 
+              onClick={() => Actions.replace('orders')}
+              loading={loading}
+              disabled={loading}
+            >
+              <Text>Ajudar</Text>
+            </ButtonPrimary>
+          </View>
+        }
       </View>
     </SafeAreaView>
   )

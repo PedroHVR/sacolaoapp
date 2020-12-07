@@ -15,6 +15,7 @@ const useAuth = () => {
     user: context.user,
     emailLogin: context.emailLogin,
     authenticated: context.authenticated,
+    profile: context.profile,
     loading: context.loading,
   };
 };

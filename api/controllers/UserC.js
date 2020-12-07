@@ -128,14 +128,14 @@ exports.login = function(req, res, next) {
                   'email': user.email,
                   'idUser': user._id,
                   'name': user.name,
-                  'role': user.profile
                 };
 
                 let infoUser = {
                   'idUser': user._id,
                   'name': user.name,
                   'email': user.email,
-                  'phone': user.phone
+                  'phone': user.phone,
+                  'profile': user.profile
                 };
 
                 let token = jwt.sign(

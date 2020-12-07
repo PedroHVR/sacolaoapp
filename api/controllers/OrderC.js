@@ -2,9 +2,9 @@ const Order = require('../models/Order');
 const User = require('../models/User');
 
 exports.listProducts = function(req, res, next) {
-  const { userId } = req.body;
+  const { userId } = req.params;
+  console.log(userId)
   const params = userId ? {user: userId} : {}
-
   Order.find(params, (err, docs) => {
     if (err) {
       res.status(500).json(err)

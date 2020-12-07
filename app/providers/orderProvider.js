@@ -8,12 +8,12 @@ const OrderProvider = ({ children }) => {
   const { loading: LoadingCart } = useCart()
   const [orders, setOrders] = useState(true)
   const [loading, setLoading] = useState(true)
-  const { user } = useAuth()
+  const { user, profile } = useAuth()
 
   const loadOrders = async () => {
     if(loading && orders){
       setLoading(false)
-      const response = await services.orderService.order.listOrders({ userId: user.IdUser })
+      const response = await services.orderService.order.listOrders(profile === 1 ? user.idUser : '')
       setOrders(response.data)
     }
   }
@@ -23,7 +23,7 @@ const OrderProvider = ({ children }) => {
       loadOrders()
     }
   }, [loading, user, LoadingCart])
-  
+
   const isCategoryEmpty = (orderId, category) => {
     return orders.filter(
       order => order._id === orderId

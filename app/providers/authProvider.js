@@ -6,6 +6,7 @@ import service from '../services';
 
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState();
+  const [profile, setProfile] = useState();
   const [emailLogin, setEmailLogin] = useState();
   const [authenticated, setAuthenticated] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -21,6 +22,7 @@ const AuthProvider = ({ children }) => {
         setUser(response.data.response.data);
         await AsyncStorage.setItem('userToken', response.data.response.token);
         setAuthenticated(true);
+        setProfile(response.data.response.data.profile)
       } else {
         setLoading(false);
       }
@@ -52,6 +54,7 @@ const AuthProvider = ({ children }) => {
         user,
         emailLogin,
         authenticated,
+        profile,
         loading,
       }}
     >
