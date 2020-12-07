@@ -21,6 +21,7 @@ const ShoppingCart = () => {
 
   useEffect(()=> {
   }, [counter])
+
   return (
     <SafeAreaView style={styles.container}>
       {isCartEmpty() && 

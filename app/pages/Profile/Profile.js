@@ -8,11 +8,12 @@ import { Avatar, Text } from 'react-native-paper';
 import { Actions } from 'react-native-router-flux';
 import useAuth from '../../hooks/useAuth';
 import useCart from '../../hooks/useCart';
+import useOrder from '../../hooks/useOrder';
 
 const Profile = () => {
   const { user, logout } = useAuth()
   const { loading } = useCart()
-
+  const { orders } = useOrder()
   if(!user) {
     logout()
   }
@@ -26,7 +27,7 @@ const Profile = () => {
           <Text theme={{colors: {text: '#000'}}}>{user.name.toUpperCase()}</Text>
           <Text theme={{colors: {text: '#000'}}}>EMAIL: {user.email}</Text>
         </View>
-        <View>
+        <View style={styles.viewActions}>
           <ButtonPrimary
             mode="contained" 
             onClick={() => Actions.replace('shopping')}
@@ -35,6 +36,12 @@ const Profile = () => {
           >
             <Text>Fazer compras</Text>
           </ButtonPrimary>
+          {orders && orders !== true &&<ButtonPrimary
+            mode="contained" 
+            onClick={() => Actions.replace('orders')}
+          >
+            <Text>Ver compras</Text>
+          </ButtonPrimary>}
         </View>
       </View>
     </SafeAreaView>

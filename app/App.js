@@ -9,6 +9,7 @@ import theme from './theme/theme';
 import CartProvider from './providers/cartProvider';
 import AuthProvider from './providers/authProvider';
 import ProductProvider from './providers/productProvider';
+import OrderProvider from './providers/orderProvider';
 
 const App = () => {
   return (
@@ -18,7 +19,9 @@ const App = () => {
         <AuthProvider>
           <ProductProvider>
             <CartProvider>
-              <Router />
+              <OrderProvider>
+                <Router />
+              </OrderProvider>
             </CartProvider>
           </ProductProvider>
         </AuthProvider>

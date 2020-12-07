@@ -13,6 +13,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-evenly',
   },
+  viewActions: {
+    display: "flex",
+    minHeight: "20%",
+    justifyContent: 'space-evenly'
+  },
   imageDiv: {
     display: 'flex',
     alignItems: 'center',
