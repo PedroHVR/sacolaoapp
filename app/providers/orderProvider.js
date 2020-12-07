@@ -58,6 +58,16 @@ const OrderProvider = ({ children }) => {
     setLoading(false)
   }
 
+  const finishOrder = async function(orderId) {
+    console.log(orderId)
+    setLoading(true)
+    const response = await services.orderService.order.updateOrderStatus(orderId, 3)
+    if(response.status === 200) {
+      loadOrders()
+    }
+    setLoading(false)
+  }
+
   return (
     <OrderContext.Provider
       value={{
@@ -67,6 +77,7 @@ const OrderProvider = ({ children }) => {
         helpOrderUser,
         helpings,
         loadHelpings,
+        finishOrder,
         loading: loading,
       }}
     >

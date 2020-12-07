@@ -9,11 +9,14 @@ const statuses = ["", "Aguardando voluntário", "Está sendo comprado", "Finaliz
 const statusesSelf = ["", "", "Você está ajudando", "Finalizada"]
 
 const Accordion = ({ name, userName, items, status, orderId, helper, type, theme }) => {
+  const themeAccordion =  {colors: {text: "#000", primary: "#000"}}
+
   const [expanded, setExpanded] = useState(false);
 
   const handlePress = () => setExpanded(!expanded);
-  const themeAccordion =  {colors: {text: "#000", primary: "#000"}}
-  const { isCategoryEmpty, helpOrderUser, loading } = useOrder()
+
+  const { isCategoryEmpty, helpOrderUser, loading, finishOrder } = useOrder()
+
   const { profile } = useAuth();
   const title = type === 1 ?
   `${statuses[status]} ${status !== 1
@@ -79,6 +82,7 @@ const Accordion = ({ name, userName, items, status, orderId, helper, type, theme
         <ButtonPrimary 
           mode="contained"
           disabled={status !== 2}
+          onClick={() => finishOrder(orderId)}
         >
           <Text>Já recebi essa compra</Text>
         </ButtonPrimary>

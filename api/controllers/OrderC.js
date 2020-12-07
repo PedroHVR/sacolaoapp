@@ -16,7 +16,12 @@ exports.listProducts = function(req, res, next) {
 
 exports.updateStatus = function(req, res, next) {
   const { orderId, status, helper } = req.params;
-  
+  const toUpdate = {status: status}
+
+  if(helper !== 'undefined') {
+    toUpdate['helper'] = helper
+  }
+
   if(!orderId || !status) {
     res.status(406).json({
       "error": "Invalid Params!"
@@ -31,7 +36,7 @@ exports.updateStatus = function(req, res, next) {
             "error": "Order not found"
           })
         } else {
-          order.updateOne({status: status, helper: helper}, function(err, order){
+          order.updateOne(toUpdate, function(err, order){
             if (err) {
               res.status(500).json(err)
             } else {
