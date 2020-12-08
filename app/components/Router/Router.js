@@ -12,11 +12,12 @@ import {
   Helping,
   Settings
 } from '../../pages';
-import { ProductsByCategory } from '../../pages/Shopping/components';
 
+import { ProductsByCategory } from '../../pages/Shopping/components';
 
 const Router = () => {
   const { authenticated } = useAuth()
+
   return (
     <RouterSwitch>
       <Scene key="root" hideNavBar>

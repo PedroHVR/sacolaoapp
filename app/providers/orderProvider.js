@@ -5,37 +5,25 @@ import useAuth from '../hooks/useAuth';
 import useCart from '../hooks/useCart';
 
 const OrderProvider = ({ children }) => {
-  const { loading: LoadingCart } = useCart()
-  const [orders, setOrders] = useState(true)
+  const [orders, setOrders] = useState()
   const [helpings, setHelpings] = useState()
-  const [loading, setLoading] = useState(true)
+  const [loading, setLoading] = useState(false)
   const { user, profile } = useAuth()
 
   const loadOrders = async () => {
+    setLoading(true)
     const response = await services.orderService.order.listOrders(profile === 1 ? user.idUser : '')
     setOrders(response.data)
     if(profile === 2) {
       await loadHelpings()
-      if(loading){
-        setLoading(false)
-      }
-    } else {
-      if(loading){
-        setLoading(false)
-      }
     }
+    setLoading(false)
   }
 
   const loadHelpings = async () => {
     const response = await services.orderService.order.myHelpings(user.idUser)
     setHelpings(response.data)
   }
-
-  useEffect(() => {
-    if(user && orders){
-      loadOrders()
-    }
-  }, [loading, user, LoadingCart])
 
   const isCategoryEmpty = (orderId, category, type) => {
     if(type === 1){
@@ -84,6 +72,7 @@ const OrderProvider = ({ children }) => {
     <OrderContext.Provider
       value={{
         orders,
+        setOrders,
         isCategoryEmpty,
         loadOrders,
         helpOrderUser,

@@ -12,6 +12,7 @@ const useProduct = () => {
     products: context.products,
     colors: context.colors,
     loadProducts: context.loadProducts,
+    setProducts: context.setProducts,
   };
 };
 

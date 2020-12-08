@@ -1,7 +1,7 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 
 import { View, SafeAreaView } from 'react-native';
-import {  ButtonPrimary, TextInput } from '../../components';
+import {  ButtonPrimary } from '../../components';
 
 import styles from './styles';
 import { Avatar, FAB, Text } from 'react-native-paper';
@@ -9,14 +9,26 @@ import { Actions } from 'react-native-router-flux';
 import useAuth from '../../hooks/useAuth';
 import useCart from '../../hooks/useCart';
 import useOrder from '../../hooks/useOrder';
+import useProduct from '../../hooks/useProduct';
 
 const Profile = () => {
-  const { user, profile, logout } = useAuth()
+  const { user, profile, logout, authenticated } = useAuth()
   const { loading } = useCart()
-  const { orders, helpings, loading: loadingOrder } = useOrder()
+  const { loading: loadingOrder, loadOrders, orders } = useOrder()
+  const { loadProducts, products } = useProduct()
+
   if(!user) {
     logout()
   }
+
+  useEffect(() => {
+    if(!orders){
+      loadOrders()
+    }
+    if(!products){
+      loadProducts()
+    }
+  }, [authenticated])
 
   return (
     <SafeAreaView style={styles.container}>

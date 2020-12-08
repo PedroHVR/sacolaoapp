@@ -10,8 +10,9 @@ const useOrder = () => {
 
   return {
     orders: context.orders,
+    setOrders: context.setOrders,
     isCategoryEmpty: context.isCategoryEmpty,
-    loadOrders: context.loadOrder,
+    loadOrders: context.loadOrders,
     helpOrderUser: context.helpOrderUser,
     helpings: context.helpings,
     loadHelpings: context.loadHelpings,

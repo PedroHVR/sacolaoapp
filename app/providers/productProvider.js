@@ -13,30 +13,28 @@ function co(lor){
 
 const ProductProvider = ({ children }) => {
   const [products, setProducts] = useState()
-  const [loading, setLoading] = useState(true)
+  const [loading, setLoading] = useState(false)
   const [colors, setColors] = useState()
+
   const loadProducts = async () => {
-    if(loading) {
-      const product = await services.productService.product.listProducts()
-      setLoading(false)
-      setProducts(product.data)
+    setLoading(true)
+    const product = await services.productService.product.listProducts()
+    setLoading(false)
+    setProducts(product.data)
 
-      let colorsList = []
-      for (let l in product.data) {
-        colorsList.push('#'+co(''))
-      }
-      setColors(colorsList)
+    let colorsList = []
+    for (let l in product.data) {
+      colorsList.push('#'+co(''))
     }
+    setColors(colorsList)
+    setLoading(false)
   }
-
-  useEffect(() => {
-    loadProducts()
-  }, [loading])
 
   return (
     <ProductContext.Provider
       value={{
         products,
+        setProducts,
         loadProducts,
         colors,
       }}

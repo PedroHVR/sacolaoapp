@@ -1,7 +1,7 @@
 import axios from 'axios';
 import AsyncStorage from '@react-native-community/async-storage';
 
-const localURL = 'http://192.168.1.107:4000/';
+const localURL = 'https://sacolao.herokuapp.com/';
 const api = axios.create({
   baseURL: process.env.URL || localURL,
 });
