@@ -8,15 +8,16 @@ import styles from '../styles';
 
 const ProductsByCategory = ({ items, value, color, ...props }) => {
   const cart = useCart()
-  const [quantities, setQuantities] = useState(cart.cart)
   const [counter, setCounter] = useState(0)
-  useEffect(()=> {
-    const mountQuantities = () => {
-      setQuantities(cart.cart)
-    }
+  const [searchQuery, setSearchQuery] = useState('')
+  const onChangeSearch = (query) => setSearchQuery(query)
+  const [itemsFilter, setItems] = useState(items)
 
-    mountQuantities
-  }, [counter])
+  useEffect(()=> {
+    if(itemsFilter){
+      setItems(items.filter(item => item.name.toLowerCase().includes(searchQuery.toLowerCase())))
+    }
+  }, [counter, searchQuery])
 
   return (
     <SafeAreaView style={styles.container}>
@@ -27,12 +28,16 @@ const ProductsByCategory = ({ items, value, color, ...props }) => {
           icon="arrow-left"
           onPress={() => Actions.replace('shopping')}
         />
-      <Searchbar category={value.toLowerCase()}/>
+      <Searchbar
+        onChangeSearch={onChangeSearch} 
+        searchQuery={searchQuery} 
+        category={value.toLowerCase()}
+      />
       </View>
       <ScrollView>
         <Text style={{fontWeight: 'bold'}}>Oi</Text>
-        {items && value && Object.keys(items).map((key) => {
-          const item = items[key]
+        {itemsFilter && value && Object.keys(itemsFilter).map((key) => {
+          const item = itemsFilter[key]
           return (
             <View style={styles.shoppingView} key={key}>
               <ButtonPrimary 

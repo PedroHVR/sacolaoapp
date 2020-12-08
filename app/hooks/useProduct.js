@@ -10,6 +10,7 @@ const useProduct = () => {
 
   return {
     products: context.products,
+    colors: context.colors,
     loadProducts: context.loadProducts,
   };
 };

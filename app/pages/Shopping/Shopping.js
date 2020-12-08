@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 
 import { View, SafeAreaView, ScrollView } from 'react-native';
 import {  ButtonPrimary, Searchbar } from '../../components';
@@ -9,7 +9,16 @@ import { Actions } from 'react-native-router-flux';
 import useProduct from '../../hooks/useProduct';
 
 const Shopping = () => {
-  const { products } = useProduct()
+  const { products, colors } = useProduct()
+  const [searchQuery, setSearchQuery] = useState('')
+  const onChangeSearch = (query) => setSearchQuery(query)
+  const [itemsFilter, setItems] = useState(products)
+
+  useEffect(() => {
+    if(itemsFilter){
+      setItems(products.filter(item => item.name.toLowerCase().includes(searchQuery.toLowerCase())))
+    }
+  }, [searchQuery])
 
   return (
     <SafeAreaView style={styles.container}>
@@ -20,20 +29,17 @@ const Shopping = () => {
           icon="arrow-left"
           onPress={() => Actions.replace('profile')}
         />
-        <Searchbar category="categoria"/>
+        <Searchbar 
+          onChangeSearch={onChangeSearch} 
+          searchQuery={searchQuery} 
+          category="categoria"
+        />
       </View>
       <ScrollView>
-        {Object.keys(products).map((key, index) => {
-          const value = products[key].name
-          const items = products[key].products
-          const color = '#' + (function co(lor){
-            return (
-              lor+=
-              [1,2,3,4,5,6,7,8,9,'a','b','c','d','e']
-              [Math.floor(Math.random()*14)]
-            )
-            && (lor.length == 6)?lor:co(lor);
-          })('')
+        {Object.keys(itemsFilter).map((key, index) => {
+          const value = itemsFilter[key].name
+          const items = itemsFilter[key].products
+          const color = colors[index]
           return (
             <View style={styles.shoppingView} key={index}>
               <ButtonPrimary
