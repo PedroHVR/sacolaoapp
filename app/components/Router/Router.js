@@ -9,7 +9,8 @@ import {
   Shopping,
   ShoppingCart,
   Orders,
-  Helping
+  Helping,
+  Settings
 } from '../../pages';
 import { ProductsByCategory } from '../../pages/Shopping/components';
 
@@ -22,6 +23,7 @@ const Router = () => {
         {authenticated &&
           <>
             <Scene hideNavBar key="profile" component={Profile}/>
+            <Scene hideNavBar key="settings" component={Settings}/>
             <Scene hideNavBar key="shopping" component={Shopping}/>
             <Scene hideNavBar key="orders" component={Orders}/>
             <Scene hideNavBar key="helpings" component={Helping}/>

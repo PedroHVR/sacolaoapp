@@ -23,7 +23,7 @@ const Login = () => {
         <Formik 
           validationSchema={schema}
           initialValues={{
-            email: '',
+            email: emailLogin || '',
             password: ''
           }}
           onSubmit={async (data) => doLogin(data)}
@@ -60,6 +60,7 @@ const Login = () => {
                   mode="contained"
                   onClick={submit}
                   loading={loading}
+                  disabled={loading}
                 >
                   <Text>Entrar</Text>
                 </ButtonPrimary>
@@ -70,6 +71,7 @@ const Login = () => {
         <View>
           <ButtonPrimary
             onClick={() => Actions.push('register')}
+            disabled={loading}
           >
             Criar um conta
           </ButtonPrimary>

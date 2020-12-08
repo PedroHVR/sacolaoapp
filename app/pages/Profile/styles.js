@@ -25,6 +25,16 @@ const styles = StyleSheet.create({
     minHeight: '30%',
     width: '100%',
   },
+  fab: {
+    alignSelf: 'flex-end',
+    marginTop: '8%',
+    backgroundColor: "#E76F51",
+    width: 30,
+    height: 30,
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center'
+  }
 });
 
 export default styles

@@ -4,7 +4,7 @@ import { View, SafeAreaView } from 'react-native';
 import {  ButtonPrimary, TextInput } from '../../components';
 
 import styles from './styles';
-import { Avatar, Text } from 'react-native-paper';
+import { Avatar, FAB, Text } from 'react-native-paper';
 import { Actions } from 'react-native-router-flux';
 import useAuth from '../../hooks/useAuth';
 import useCart from '../../hooks/useCart';
@@ -20,11 +20,12 @@ const Profile = () => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <Avatar.Icon 
-        size={24} 
+      <FAB
+        small
         icon="cog" 
         color="#FFF" 
-        style={{alignSelf: 'flex-end', marginTop: '8%'}}
+        style={styles.fab}
+        onPress={() => Actions.replace("settings")}
       />
       <View style={styles.profileView}>
         <View style={styles.imageDiv}>
