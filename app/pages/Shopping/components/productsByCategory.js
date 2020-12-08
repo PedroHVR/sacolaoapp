@@ -35,7 +35,6 @@ const ProductsByCategory = ({ items, value, color, ...props }) => {
       />
       </View>
       <ScrollView>
-        <Text style={{fontWeight: 'bold'}}>Oi</Text>
         {itemsFilter && value && Object.keys(itemsFilter).map((key) => {
           const item = itemsFilter[key]
           return (

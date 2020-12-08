@@ -18,6 +18,7 @@ const ShoppingCart = () => {
     loading,
     isCartEmpty,
     isCategoryEmpty,
+    reloadCart,
    } = useCart()
 
    const {
@@ -90,6 +91,7 @@ const ShoppingCart = () => {
           disabled={loading || isCartEmpty()}
           onClick={async () => {
             await orderCart()
+            await reloadCart()
             await loadOrders()
           }}
         >

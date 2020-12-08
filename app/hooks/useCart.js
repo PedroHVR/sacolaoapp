@@ -10,6 +10,7 @@ const useCart = () => {
 
   return {
     cart: context.cart,
+    reloadCart: context.reloadCart,
     addToCart: context.addToCart,
     removeFromCart: context.removeFromCart,
     getQuantityFromCart: context.getQuantityFromCart,

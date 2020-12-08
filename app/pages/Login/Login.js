@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 
-import { View, SafeAreaView } from 'react-native';
+import { View, SafeAreaView, ScrollView } from 'react-native';
 import { Formik, useFormik } from 'formik'
 import {  ButtonPrimary, TextInput } from '../../components';
 
@@ -19,7 +19,7 @@ const Login = () => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <View style={styles.loginView}>
+      <ScrollView contentContainerStyle={styles.loginView}>
         <Formik 
           validationSchema={schema}
           initialValues={{
@@ -73,10 +73,10 @@ const Login = () => {
             onClick={() => Actions.push('register')}
             disabled={loading}
           >
-            Criar um conta
+            Criar uma conta
           </ButtonPrimary>
-        </View>
-      </View>
+        </View>        
+      </ScrollView>
     </SafeAreaView>
   )
 }

@@ -7,13 +7,11 @@ const styles = StyleSheet.create({
     margin: 16,
   },
   loginView: {
-    display: 'flex',
-    minHeight: '100%',
-    alignContent: 'center',
+    flexGrow: 1,
     justifyContent: 'center'
   },
   inputsDiv: {
-    height: '30%',
+    minHeight: '35%',
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'space-evenly',

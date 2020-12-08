@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { View, SafeAreaView } from 'react-native';
+import { View, SafeAreaView, ScrollView } from 'react-native';
 
 import { Formik } from 'formik';
 import { Actions } from 'react-native-router-flux';
@@ -28,7 +28,7 @@ const Register = () => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <View>
+      <ScrollView>
         <View style={styles.imageDiv}>
           <Avatar.Icon size={100} icon="account" />
         </View>
@@ -114,18 +114,18 @@ const Register = () => {
                 >
                   <Text>Registrar</Text>
                 </ButtonPrimary>
+                <View style={styles.backButton}>
+                  <ButtonPrimary
+                    onClick={() => Actions.popTo('login')}
+                  >
+                    Voltar
+                  </ButtonPrimary>
+                </View>
               </View>
             )
           }}
-      </Formik>
-      </View>
-      <View>
-        <ButtonPrimary
-          onClick={() => Actions.popTo('login')}
-        >
-          Voltar
-        </ButtonPrimary>
-      </View>
+        </Formik>
+      </ScrollView>
     </SafeAreaView>
   )
 }

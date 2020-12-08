@@ -15,7 +15,7 @@ const CartProvider = ({ children }) => {
   useEffect(() => {
     const loadCart = async () => {
       await loadProducts()
-
+  
       const toCart = {}
       products && products.map(productMap => {
         toCart[productMap.name] = productMap.products.map((product) => {
@@ -91,7 +91,6 @@ const CartProvider = ({ children }) => {
         const response = await services.orderService.order.createOrder({userId: user.idUser, products: cart})
         setLoading(false);
         if (response && response.status === 201) {
-          await loadOrders()
           Actions.push('profile')
         } else {
           setLoading(false);
@@ -102,10 +101,23 @@ const CartProvider = ({ children }) => {
     }
   }
 
+  const reloadCart = async () => {
+    const toCart = {}
+
+    products && products.map(productMap => {
+      toCart[productMap.name] = productMap.products.map((product) => {
+        product["quantity"] = 0;
+        return product
+      })
+      setCart(toCart)
+    })
+  }
+
   return (
     <CartContext.Provider
       value={{
         cart,
+        reloadCart,
         addToCart,
         removeFromCart,
         getQuantityFromCart,

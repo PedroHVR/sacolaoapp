@@ -3,17 +3,17 @@ import { StyleSheet } from 'react-native';
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    height: '100%',
     backgroundColor: '#fff',
     margin: 16,
   },
   imageDiv: {
+    marginTop: 50,
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    minHeight: '20%',
   },
   inputsDiv: {
-    minHeight: '65%',
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'space-evenly',
@@ -21,6 +21,9 @@ const styles = StyleSheet.create({
   textProfile: {
     marginTop: 12,
     opacity: 0.54
+  },
+  backButton: {
+    marginTop: 20,
   }
 });
 

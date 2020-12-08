@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
 
-import { View, SafeAreaView, ScrollView } from 'react-native';
+import { View, SafeAreaView, ScrollView, RefreshControl } from 'react-native';
 import {  Accordion, ButtonPrimary } from '../../components';
 
 import styles from './styles';
@@ -21,13 +21,22 @@ const Helpings = () => {
     }
   }, [counter])
 
-//   {!isCategoryEmpty(value) &&
-//     <View style={styles.viewUnities} key={`${value}${index}`}>
-//       <Text>{value}</Text>
-//     </View>
-//   }
+  const [refreshing, setRefreshing] = useState(false);
+
+  const onRefresh = useCallback(() => {
+    setRefreshing(true);
+
+    loadHelpings().then(() => setRefreshing(false));
+  }, []);
+
   return (
     <SafeAreaView style={styles.container}>
+      <ScrollView 
+        contentContainerStyle={{flexGrow: 1}}
+        refreshControl={
+          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+        }
+      >
       {
         helpings && helpings.length === 0 &&
           <View style={styles.emptyView}>
@@ -43,7 +52,6 @@ const Helpings = () => {
             </ButtonPrimary>
           </View>
       }
-      <ScrollView>
         <View style={styles.itemsView}>
           { helpings && Object.keys(helpings).map((index, key) => {
               const help = helpings[index]

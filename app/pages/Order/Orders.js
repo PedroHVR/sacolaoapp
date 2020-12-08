@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
 
-import { View, SafeAreaView, ScrollView } from 'react-native';
+import { View, SafeAreaView, ScrollView, RefreshControl } from 'react-native';
 import {  Accordion, ButtonPrimary } from '../../components';
 
 import styles from './styles';
@@ -16,6 +16,7 @@ const Orders = () => {
    } = useOrder()
 
   const {profile} = useAuth()
+  const [refreshing, setRefreshing] = useState(false);
 
   const [counter, setCounter] = useState(0)
 
@@ -25,31 +26,42 @@ const Orders = () => {
     }
   }, [counter])
 
+  const onRefresh = useCallback(() => {
+    setRefreshing(true);
+
+    loadOrders().then(() => setRefreshing(false));
+  }, []);
+
   return (
     <SafeAreaView style={styles.container}>
-      {
-        orders && orders.length === 0 &&
-          <View style={styles.emptyView}>
-            <Text style={{fontWeight: 'bold'}}>
+      <ScrollView
+        contentContainerStyle={{flexGrow: 1}}
+        refreshControl={
+          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+        }
+      >
+        {
+          orders && orders.length === 0 &&
+            <View style={styles.emptyView}>
+              <Text style={{fontWeight: 'bold'}}>
+                {profile === 1
+                  ? 'Você ainda não fez compras' 
+                  : 'Não há ninguém precisando de ajuda hoje'
+                }
+              </Text>
               {profile === 1
-                ? 'Você ainda não fez compras' 
-                : 'Não há ninguém precisando de ajuda hoje'
-              }
-            </Text>
-            {profile === 1
-              ? <ButtonPrimary mode="text" onClick={() => Actions.replace('shopping')}>
-                  <Text 
-                    style={{fontWeight: 'bold'}} 
-                  >
-                    Que tal começar clicando aqui :D            
-                  </Text>
-                </ButtonPrimary>
-              : 
-              <Text style={{fontWeight: 'bold'}}>'Obrigado por ajudar :)'</Text>
-            }        
-          </View>
-      }
-      <ScrollView>
+                ? <ButtonPrimary mode="text" onClick={() => Actions.replace('shopping')}>
+                    <Text 
+                      style={{fontWeight: 'bold'}} 
+                    >
+                      Que tal começar clicando aqui :D            
+                    </Text>
+                  </ButtonPrimary>
+                : 
+                <Text style={{fontWeight: 'bold'}}>Obrigado por ajudar :)</Text>
+              }        
+            </View>
+        }
         <View style={styles.itemsView}>
           { orders && orders !== true && Object.keys(orders).map((index, key) => {
               const order = orders[index]
