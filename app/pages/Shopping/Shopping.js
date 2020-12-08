@@ -7,7 +7,6 @@ import styles from './styles';
 import { Text, FAB } from 'react-native-paper';
 import { Actions } from 'react-native-router-flux';
 import useProduct from '../../hooks/useProduct';
-import useCart from '../../hooks/useCart';
 
 const Shopping = () => {
   const { products } = useProduct()
@@ -27,20 +26,30 @@ const Shopping = () => {
         {Object.keys(products).map((key, index) => {
           const value = products[key].name
           const items = products[key].products
+          const color = '#' + (function co(lor){
+            return (
+              lor+=
+              [1,2,3,4,5,6,7,8,9,'a','b','c','d','e']
+              [Math.floor(Math.random()*14)]
+            )
+            && (lor.length == 6)?lor:co(lor);
+          })('')
           return (
             <View style={styles.shoppingView} key={index}>
-              <ButtonPrimary 
-              height={80} 
-              mode="contained" 
-              width="92%"
-              onClick={
-                () => Actions.push(
-                  'productsByCategory', 
-                  {
-                    items: items,
-                    value: value
-                  }
-                )
+              <ButtonPrimary
+                height={80} 
+                mode="contained" 
+                width="92%"
+                color={color}
+                onClick={
+                  () => Actions.push(
+                    'productsByCategory', 
+                    {
+                      items: items,
+                      value: value,
+                      color: color
+                    }
+                  )
               }>
                 <Text style={{fontWeight: 'bold'}}>{value}</Text>
               </ButtonPrimary>

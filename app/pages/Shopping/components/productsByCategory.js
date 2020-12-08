@@ -6,7 +6,7 @@ import { ButtonPrimary, Searchbar } from '../../../components';
 import useCart from '../../../hooks/useCart';
 import styles from '../styles';
 
-const ProductsByCategory = ({ items, value, ...props }) => {
+const ProductsByCategory = ({ items, value, color, ...props }) => {
   const cart = useCart()
   const [quantities, setQuantities] = useState(cart.cart)
   const [counter, setCounter] = useState(0)
@@ -43,14 +43,16 @@ const ProductsByCategory = ({ items, value, ...props }) => {
                   cart.removeFromCart(value, item._id)
                   setCounter(counter-1)
                 }}
+                color={color}
               >
                 <Text style={{fontWeight: 'bold'}}>-</Text>
               </ButtonPrimary>
-              <View style={styles.viewProduct}>
+              <View style={{backgroundColor: color, ...styles.viewProduct}}>
                 <Text style={{fontWeight: 'bold'}}>{item.name}</Text>
               </View>
               <ButtonPrimary
-                height={50} 
+                height={50}
+                color={color}
                 width="5%" 
                 mode="contained"
                 onClick={() =>{
@@ -60,7 +62,7 @@ const ProductsByCategory = ({ items, value, ...props }) => {
               >
                 <Text style={{fontWeight: 'bold'}}>+</Text>
               </ButtonPrimary>
-              <View style={styles.viewUnities}>
+              <View style={{backgroundColor: color, ...styles.viewUnities}}>
                 <Text>
                   {cart.getQuantityFromCart(value, item._id)}
                 </Text>

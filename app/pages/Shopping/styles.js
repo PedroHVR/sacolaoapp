@@ -25,7 +25,6 @@ const styles = StyleSheet.create({
     marginLeft: '2%'
   },
   viewUnities: {
-    backgroundColor:  '#E76F51',
     width: '15%',
     display: 'flex',
     justifyContent: 'center',
@@ -36,7 +35,6 @@ const styles = StyleSheet.create({
     marginRight: 10,
   },
   viewProduct: {
-    backgroundColor:  '#E76F51',
     width: '40%',
     display: 'flex',
     justifyContent: 'center',
