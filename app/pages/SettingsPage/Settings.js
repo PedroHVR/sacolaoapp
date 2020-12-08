@@ -24,12 +24,18 @@ const Settings = () => {
       </View>
       <ScrollView>
       <List.Section theme={themeAccordion} style={{width: "100%"}}>
-        <List.Subheader  theme={themeAccordion}>Minha conta</List.Subheader>
+        <List.Subheader 
+          style={{fontWeight: 'bold'}} 
+          theme={themeAccordion}
+          >
+            Minha conta
+          </List.Subheader>
         <List.Item 
          theme={themeAccordion}
           title="Sair" 
           left={() => <List.Icon color="#000" icon="logout" />} 
           onPress={logout}
+          style={{marginTop: -20}}
         />
       </List.Section>
       </ScrollView>
