@@ -7,12 +7,16 @@ import styles from './styles';
 import { Text } from 'react-native-paper';
 import { Actions } from 'react-native-router-flux';
 import useOrder from '../../hooks/useOrder';
+import useAuth from '../../hooks/useAuth';
 
 const Orders = () => {
   const {
     orders,
     loadOrders,
    } = useOrder()
+
+  const {profile} = useAuth()
+
   const [counter, setCounter] = useState(0)
 
   useEffect(()=> {
@@ -27,11 +31,22 @@ const Orders = () => {
         orders && orders.length === 0 &&
           <View style={styles.emptyView}>
             <Text style={{fontWeight: 'bold'}}>
-              Não há ninguém precisando de ajuda hoje
+              {profile === 1
+                ? 'Você ainda não fez compras' 
+                : 'Não há ninguém precisando de ajuda hoje'
+              }
             </Text>
-            <Text style={{fontWeight: 'bold'}}>
-              Obrigado por ajudar :)             
-            </Text>
+            {profile === 1
+              ? <ButtonPrimary mode="text" onClick={() => Actions.replace('shopping')}>
+                  <Text 
+                    style={{fontWeight: 'bold'}} 
+                  >
+                    Que tal começar clicando aqui :D            
+                  </Text>
+                </ButtonPrimary>
+              : 
+              <Text style={{fontWeight: 'bold'}}>'Obrigado por ajudar :)'</Text>
+            }        
           </View>
       }
       <ScrollView>
