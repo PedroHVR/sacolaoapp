@@ -38,7 +38,6 @@ const styles = StyleSheet.create({
     width: '90%'
   },
   viewUnities: {
-    backgroundColor:  '#000',
     width: '105%',
     display: 'flex',
     justifyContent: 'center',
